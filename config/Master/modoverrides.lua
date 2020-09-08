@@ -1,0 +1,12 @@
+-- Sample:
+--
+-- return {
+-- ["workshop-123456789"] = { enabled = true,
+--     configuration_options =
+--     {
+--         xxxxx = xxxxx,
+--         xxxxx = xxxxx,
+--     }
+-- },
+-- ["workshop-987654321"] = { enabled = true }
+-- }
