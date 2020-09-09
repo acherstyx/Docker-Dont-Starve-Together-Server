@@ -30,7 +30,7 @@ RUN cd /root/DST/bin/ &&\
     echo ./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Caves > start.sh &&\
     chmod +x start.sh
 
-COPY ./config /root/.klei/DoNotStarveTogether
+COPY ./config /root/.klei/DoNotStarveTogether/MyDediServer
 
 VOLUME /root/.klei/DoNotStarveTogether/Cluster_1
 VOLUME /root/DST/mods
