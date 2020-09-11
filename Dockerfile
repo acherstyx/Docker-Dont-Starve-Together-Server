@@ -27,10 +27,7 @@ RUN cd /root/DST/bin/ &&\
     > start.sh && \
     chmod +x start.sh
 
-COPY ./config /root/.klei/DoNotStarveTogether/MyDediServer
-COPY ./mods /root/DST/mods
-
-VOLUME /root/.klei/DoNotStarveTogether/Cluster_1
+VOLUME /root/.klei/DoNotStarveTogether/MyDediServer
 VOLUME /root/DST/mods
 
 WORKDIR /root/DST/bin
