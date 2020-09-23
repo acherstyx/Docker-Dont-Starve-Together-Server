@@ -26,6 +26,8 @@
 pds-xxxxxxxxxxxxxxxxxxxxx
 ```
 
+前往官网创建服务器来获得。
+
 ## cluster.ini
 
   包含一些通用的服务器配置内容。
@@ -68,7 +70,13 @@ vote_kick_enabled = true    # 投票踢人
 
 ## delicated_server_mods_setup.lua
 
-  服务器的mod配置，用来添加mod。
+  在新的版本中这一个文件需要放在外层独立的`mods`文件夹内。控制服务器的mod，用来添加mod。
+  包含两种添加的模式：添加单个mod和添加一个Steam Collection中的所有mod。
+
+```lua
+ServerModSetup("id")
+ServerModCollectionSetup("id")
+```
 
 ## adminlist.txt
 
@@ -118,6 +126,13 @@ server_port = 10999          # 监听的 UDP 端口，只能介于 10998 - 11018
 
 分别为主世界和洞穴世界生成的配置文件。
 
+可以在联机版中先创建一个世界，然后把存档中的同名配置文件复制过来到对应文件夹中，并且在`Caves`（洞穴）的`worldgenoverride.lua`中添加以下两行。
+
+```lua
+override_enabled = true,
+preset = "DST_CAVE",
+```
+
 ### modoverrides.lua
 
-mod的配置文件，主世界和洞穴使用同一份即可。
+mod的配置文件，主世界和洞穴使用同一份即可。同样可以在联机版中创建一个同样的世界，使用相同的Mod列表，然后把存档中的这一配置文件拷贝过来。
