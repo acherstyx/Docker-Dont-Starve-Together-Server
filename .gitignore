@@ -1,0 +1,10 @@
+/config/Caves/save
+/config/Caves/backup
+/config/Master/save
+/config/Master/backup
+
+server_chat_log.txt
+server_log.txt
+
+/mods/INSTALLING_MODS.txt
+/mods/MAKING_MODS.txt

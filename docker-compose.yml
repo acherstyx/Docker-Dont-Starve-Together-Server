@@ -7,9 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: dst_server
     restart: always
+    privileged: true
     volumes:
       - ./config:/root/.klei/DoNotStarveTogether/MyDediServer
       - ./mods:/root/DST/mods
-
-volumes:
-  dst_save:

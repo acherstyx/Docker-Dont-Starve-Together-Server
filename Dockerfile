@@ -22,10 +22,16 @@ RUN ln -s /root/steamcmd/linux32/libstdc++.so.6 /root/DST/bin/lib32/
 # create exec script
 RUN cd /root/DST/bin/ &&\
     echo \
-    "./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Master && \
+    "taskset -c 0 /root/steamcmd/steamcmd.sh \
+            +login anonymous \
+            +force_install_dir /root/DST \
+            +app_update 343050  validate \
+            +quit ; \
+    ./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Master && \
     ./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Caves" \
     > start.sh && \
-    chmod +x start.sh
+    chmod +x start.sh && \
+    cat start.sh
 
 VOLUME /root/.klei/DoNotStarveTogether/MyDediServer
 VOLUME /root/DST/mods
