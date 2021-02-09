@@ -21,10 +21,11 @@ RUN ln -s /root/steamcmd/linux32/libstdc++.so.6 /root/DST/bin/lib32/
 
 # create exec script
 RUN cd /root/DST/bin/ &&\
+    echo "/root/steamcmd/steamcmd.sh +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir /root/DST +app_update 343050 +quit" > start.sh && \
     echo \
     "./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Master & \
     ./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Caves" \
-    > start.sh && \
+    >> start.sh && \
     chmod +x start.sh && \
     cat start.sh
 
