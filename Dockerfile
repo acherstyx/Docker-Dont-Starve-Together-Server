@@ -22,7 +22,7 @@ RUN ln -s /root/steamcmd/linux32/libstdc++.so.6 /root/DST/bin/lib32/
 # create exec script
 RUN cd /root/DST/bin/ &&\
     echo \
-    "./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Master && \
+    "./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Master & \
     ./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Caves" \
     > start.sh && \
     chmod +x start.sh && \
