@@ -1,12 +1,13 @@
+# Saved
 /config/Caves/save
 /config/Caves/backup
 /config/Master/save
 /config/Master/backup
 
+# Log
 server_chat_log.txt
 server_log.txt
 
-/mods/INSTALLING_MODS.txt
-/mods/MAKING_MODS.txt
-
-/mods/workshop-*
+# Volumes
+/volumes/mods/workshop-*
+/volumes/ugc_mods

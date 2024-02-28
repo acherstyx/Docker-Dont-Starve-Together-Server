@@ -1,27 +1,29 @@
 FROM ubuntu:18.04
 
-# steamcmd
+RUN mkdir -p /root/dst && \
+    mkdir -p /root/steamcmd
+
+# Install requirements
 RUN dpkg --add-architecture i386 && \
-    apt-get update && \
-    apt-get install -y lib32gcc1 libcurl4-gnutls-dev:i386 curl tar && \
-    rm -rf /var/lib/apt/lists/* && \
-    mkdir -p /root/DST && \
-    mkdir -p /root/steamcmd && \
-    cd /root/steamcmd && \
-    curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf - 
-# dst
+    apt-get update && apt-get upgrade -y && \
+    apt-get install -y curl tar ca-certificates lib32gcc1 lib32stdc++6 libcurl4-gnutls-dev:i386 && \
+    # steamcmd
+    cd /root/steamcmd && curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf - && \
+    # cleanup
+    apt-get autoremove --purge -y wget && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+# Install Don't Starve Together
 RUN taskset -c 0 /root/steamcmd/steamcmd.sh \
-            +login anonymous \
-            +force_install_dir /root/DST \
-            +app_update 343050  validate \
-            +quit
+    +@ShutdownOnFailedCommand 1 \
+    +@NoPromptForPassword 1 \
+    +login anonymous \
+    +force_install_dir /root/dst \
+    +app_update 343050 validate \
+    +quit
 
-# fix lib
-RUN ln -s /root/steamcmd/linux32/libstdc++.so.6 /root/DST/bin/lib32/
-
-# create exec script
-RUN cd /root/DST/bin/ &&\
-    echo "/root/steamcmd/steamcmd.sh +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir /root/DST +app_update 343050 +quit" > start.sh && \
+# Create exec script
+RUN cd /root/dst/bin/ && \
+    echo "/root/steamcmd/steamcmd.sh +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir /root/dst +app_update 343050 +quit" > start.sh && \
     echo \
     "./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Master & \
     ./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Caves" \
@@ -30,7 +32,8 @@ RUN cd /root/DST/bin/ &&\
     cat start.sh
 
 VOLUME /root/.klei/DoNotStarveTogether/MyDediServer
-VOLUME /root/DST/mods
+VOLUME /root/dst/mods
+VOLUME /root/dst/ugc_mods
 
-WORKDIR /root/DST/bin
+WORKDIR /root/dst/bin
 CMD "./start.sh"

@@ -10,4 +10,8 @@ services:
     privileged: true
     volumes:
       - ./config:/root/.klei/DoNotStarveTogether/MyDediServer
-      - ./mods:/root/DST/mods
+      - ./volumes/mods:/root/dst/mods
+      - ./volumes/ugc_mods:/root/dst/ugc_mods
+    ports:
+      - "10999:10999/udp"
+      - "10998:10998/udp"
