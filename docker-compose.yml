@@ -1,17 +1,45 @@
 version: "3"
 
 services:
-  app:
+  dst_master:
+    image: dst_server
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: dst_server
+    container_name: dst_master
+    networks:
+      - dst_cluster
     restart: always
-    privileged: true
     volumes:
       - ./config:/root/.klei/DoNotStarveTogether/MyDediServer
       - ./volumes/mods:/root/dst/mods
       - ./volumes/ugc_mods:/root/dst/ugc_mods
     ports:
       - "10999:10999/udp"
+    environment:
+      - SHARD_NAME=Master
+    
+    # These allow to stdin when attaching to the container via `docker attach`
+    # Any server commands should be sent to the master shard as it manages its slaves (Caves)
+    stdin_open: true
+    tty: true
+  
+  dst_caves:
+    image: dst_server
+    container_name: dst_caves
+    networks:
+      - dst_cluster
+    links:
+      - dst_master
+    restart: always
+    volumes:
+      - ./config:/root/.klei/DoNotStarveTogether/MyDediServer
+      - ./volumes/mods:/root/dst/mods
+      - ./volumes/ugc_mods:/root/dst/ugc_mods
+    ports:
       - "10998:10998/udp"
+    environment:
+      - SHARD_NAME=Caves
+
+networks:
+  dst_cluster:
