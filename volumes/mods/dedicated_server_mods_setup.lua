@@ -11,3 +11,12 @@
     --ServerModCollectionSetup("379114180") 
      
     --ServerModCollectionSetup("id")
+
+ServerModSetup("2078243581") -- Display Attack Range
+ServerModSetup("375850593") -- Extra Equip Slots
+ServerModSetup("378160973") -- Global Positions
+ServerModSetup("375859599") -- Health Info
+ServerModSetup("1207269058") -- 简易血条DST
+ServerModSetup("1595631294") -- 智能小木牌
+ServerModSetup("362175979") -- Wormhole Marks
+ServerModSetup("1185229307") -- 史诗血量条
