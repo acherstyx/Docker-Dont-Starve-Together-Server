@@ -24,7 +24,7 @@ RUN taskset -c 0 /root/steamcmd/steamcmd.sh \
 # Create exec script
 RUN cd /root/dst/bin/ && \
     echo '/root/steamcmd/steamcmd.sh +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir /root/dst +app_update 343050 +quit' >> start.sh && \
-    echo './dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard $SHARD_NAME' >> start.sh && \
+    echo './dontstarve_dedicated_server_nullrenderer -console -cluster $CLUSTER_NAME -shard $SHARD_NAME' >> start.sh && \
     chmod +x start.sh
 
 VOLUME /root/.klei/DoNotStarveTogether/MyDediServer
